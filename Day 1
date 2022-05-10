@@ -2,10 +2,7 @@ Subset Sums
 Basic Accuracy: 56.36% Submissions: 21530 Points: 1
 Given a list arr of N integers, print sums of all subsets in it.
 
- 
-
-Example 1:
-
+Example1:
 Input:
 N = 2
 arr[] = {2, 3}
@@ -58,4 +55,83 @@ public:
         return ans;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+90. Subsets II
+Medium
+
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+
+Example 1:
+
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+ 
+
+Constraints:
+
+1 <= nums.length <= 10
+-10 <= nums[i] <= 10
+
+
+
+
+
+class Solution {
+//private:
+//     void findSubsets(int ind,vector<int> &nums, vector<int> &ds,vector<vector<int>> &ans){
+//         ans.push_back(ds);
+//         for(int i=0;i<nums.size();i++){
+//             if(i!=ind && nums[i]==nums[i-1]) 
+//                 continue;
+//             ds.push_back(nums[i]);
+//             findSubsets(ind+1,nums,ds,ans);
+//             ds.pop_back();
+//         }
+//     }
+// public:
+//     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+//       vector<vector<int>> ans;
+//       vector<int> ds;
+//         sort(nums.begin(),nums.end());//bcz then only duplicates will be together
+//         findSubsets(0,nums,ds,ans);
+//         return ans;
+//     }
+// };
+// commented solution is giving memory exceeded error
+    public:
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+    sort(S.begin(), S.end());
+    vector<vector<int>> ret = {{}};
+    int size = 0, startIndex = 0;
+    for (int i = 0; i < S.size(); i++) {
+        startIndex = i >= 1 && S[i] == S[i - 1] ? size : 0;
+        size = ret.size();
+        for (int j = startIndex; j < size; j++) {
+            vector<int> temp = ret[j];
+            temp.push_back(S[i]);
+            ret.push_back(temp);
+        }
+    }
+    return ret;
+} };
+
 
